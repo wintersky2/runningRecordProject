@@ -1,45 +1,42 @@
-CREATE DATABASE runningRecordProj;
+CREATE DATABASE `runningRecordProject`;
 
-USE runningRecordProj;
+USE `runningRecordProject`;
 
 CREATE TABLE `user` (
 	`id` int UNSIGNED NOT NULL PRIMARY KEY,
-	`password` varchar(20)NOT NULL,
-	`name` varchar(20) NOT NULL,
-	`age` int UNSIGNED NOT NULL,
-	`height` double UNSIGNED NOT NULL,
+	`userId` char(20) NOT NULL,
+	`password` char(20) NOT NULL,
+	`name` char(20) NOT NULL,
 	`weight` double UNSIGNED NOT NULL,
-	`followerNumber` int UNSIGNED NOT NULL,
-	`followingNumber` int UNSIGNED NOT NULL,
-	`userSearchPerm` boolean NOT NULL,
-	`userRecordPerm` char(10) NOT NULL,
+	`showWhenSearch` int NOT NULL,
+	`showMyRecord` int NOT NULL,
 	`createDate` datetime NOT NULL,
 	`modifiedDate` datetime NOT NULL
 );
 
-CREATE TABLE `running_record` (
+CREATE TABLE `record` (
 	`id` int UNSIGNED NOT NULL PRIMARY KEY,
-	`userId` int UNSIGNED NOT NULL,
+	`userId` char(20) NOT NULL,
 	`startTime` datetime NOT NULL,
 	`endTime` datetime NOT NULL,
 	`runDistance` double UNSIGNED NOT NULL,
 	`runTime` datetime NOT NULL,
 	`calorie` double UNSIGNED NOT NULL,
 	`createDate` datetime NOT NULL,
-	`modifiedTime`datetime NOT NULL
+	`modifiedTime` datetime NOT NULL
 );
 
-CREATE TABLE `user_achive` (
+CREATE TABLE `achive` (
 	`id` int UNSIGNED NOT NULL PRIMARY KEY,
 	`userId` int UNSIGNED NOT NULL,
 	`distance` double UNSIGNED NOT NULL,
 	`time` datetime NOT NULL,
 	`calorie` double UNSIGNED NOT NULL,
 	`weight` double UNSIGNED NOT NULL,
-	`isDistance` boolean NOT NULL,
-	`isTime` boolean NOT NULL,
-	`isCalorie` boolean NOT NULL,
-	`isWeight` boolean NOT NULL,
+	`isDistance` int NOT NULL,
+	`isTime` int NOT NULL,
+	`isCalorie` int NOT NULL,
+	`isWeight` int NOT NULL,
 	`createDate` datetime NOT NULL,
 	`modifiedDate` datetime NOT NULL
 );
@@ -51,3 +48,10 @@ CREATE TABLE `follow` (
 	`createDate` datetime NOT NULL,
 	`modifiedDate` datetime NOT NULL
 );
+
+SHOW tables;
+
+DESC USER;
+DESC record;
+DESC achive;
+DESC follow;
