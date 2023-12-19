@@ -10,9 +10,7 @@ import java.util.Scanner;
 
 import org.example.user.User;
 
-@AllArgsConstructor
-@Getter
-@Setter
+
 public class Global {
     private static DBConnection dbConnection;
     private static Scanner scanner;
@@ -42,6 +40,7 @@ public class Global {
     }
 
     public static User getLoginedUser() {
+
         return loginedUser;
     }
 

@@ -1,21 +1,23 @@
 CREATE DATABASE `runningRecordProject`;
 
+DROP DATABASE `runningRecordProject`;
+
 USE `runningRecordProject`;
 
 CREATE TABLE `user` (
-	`id` int UNSIGNED NOT NULL PRIMARY KEY,
+	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`userId` char(20) NOT NULL,
 	`password` char(20) NOT NULL,
 	`name` char(20) NOT NULL,
 	`weight` double UNSIGNED NOT NULL,
-	`showWhenSearch` int NOT NULL,
-	`showMyRecord` int NOT NULL,
+	`showWhenSearch` char(10) NOT NULL,
+	`showMyRecord` char(10) NOT NULL,
 	`createDate` datetime NOT NULL,
 	`modifiedDate` datetime NOT NULL
 );
 
 CREATE TABLE `record` (
-	`id` int UNSIGNED NOT NULL PRIMARY KEY,
+	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`userId` char(20) NOT NULL,
 	`startTime` datetime NOT NULL,
 	`endTime` datetime NOT NULL,
@@ -27,22 +29,22 @@ CREATE TABLE `record` (
 );
 
 CREATE TABLE `achive` (
-	`id` int UNSIGNED NOT NULL PRIMARY KEY,
+	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`userId` int UNSIGNED NOT NULL,
 	`distance` double UNSIGNED NOT NULL,
 	`time` datetime NOT NULL,
 	`calorie` double UNSIGNED NOT NULL,
 	`weight` double UNSIGNED NOT NULL,
-	`isDistance` int NOT NULL,
-	`isTime` int NOT NULL,
-	`isCalorie` int NOT NULL,
-	`isWeight` int NOT NULL,
+	`isDistance` char(10) NOT NULL,
+	`isTime` char(10) NOT NULL,
+	`isCalorie` char(10) NOT NULL,
+	`isWeight` char(10) NOT NULL,
 	`createDate` datetime NOT NULL,
 	`modifiedDate` datetime NOT NULL
 );
 
 CREATE TABLE `follow` (
-	`id` int UNSIGNED NOT NULL PRIMARY KEY,
+	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`userId` int UNSIGNED NOT NULL,
 	`followId` int UNSIGNED NOT NULL,
 	`createDate` datetime NOT NULL,
@@ -55,3 +57,4 @@ DESC USER;
 DESC record;
 DESC achive;
 DESC follow;
+SELECT *FROM `user`;

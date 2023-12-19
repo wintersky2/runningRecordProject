@@ -17,11 +17,27 @@ public class UserService {
         return userRepository.userFindById(id);
     }
 
-    public User uerFindByUserId(String userId) {
+    public User userFindByUserId(String userId) {
         return userRepository.userFindByUserId(userId);
     }
-    public List<User> FindByShowWhenSearch(String showWhenSearchStatus,String searchName){
-        return userRepository.FindByShowWhenSearch(showWhenSearchStatus,searchName);
+
+    public List<User> FindByShowWhenSearch(String showWhenSearchStatus, String searchName) {
+        return userRepository.FindByShowWhenSearch(showWhenSearchStatus, searchName);
     }
 
+    public void updateUserName(String newUserName) {
+        this.userRepository.updateUserName(newUserName);
+    }
+
+    public void updateUserWeight(double newUserWeight) {
+        this.userRepository.updateUserWeight(newUserWeight);
+    }
+
+    public String updateShowWhenSearch(String showWhenSearchStatus) {
+        return this.userRepository.updateShowWhenSearch(showWhenSearchStatus);
+    }
+
+    public String updateShowMyRecord(String showMyRecordStatus) {
+        return this.userRepository.updateShowMyRecord(showMyRecordStatus);
+    }
 }
