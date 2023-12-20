@@ -21,8 +21,8 @@ public class UserService {
         return userRepository.userFindByUserId(userId);
     }
 
-    public List<User> FindByShowWhenSearch(String showWhenSearchStatus, String searchName) {
-        return userRepository.FindByShowWhenSearch(showWhenSearchStatus, searchName);
+    public List<User> findByShowWhenSearch(String showWhenSearchStatus, String searchName) {
+        return userRepository.findByShowWhenSearch(showWhenSearchStatus, searchName);
     }
 
     public void updateUserName(String newUserName) {

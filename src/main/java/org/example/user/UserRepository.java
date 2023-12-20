@@ -67,7 +67,7 @@ public class UserRepository {
         return null;
     }
 
-    public List<User> FindByShowWhenSearch(String showWhenSearch, String searchName) {
+    public List<User> findByShowWhenSearch(String showWhenSearch, String searchName) {
         List<User> userList = new ArrayList<>();
 
         String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='%s' AND `name` LIKE '%%%s%%'", showWhenSearch, searchName);

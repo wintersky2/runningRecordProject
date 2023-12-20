@@ -82,7 +82,7 @@ public class UserController {
         System.out.print("회원 이름 검색 : ");
         String searchName = Global.getScanner().nextLine().trim();
         List<User> userList = new ArrayList<>();
-        userList = userService.FindByShowWhenSearch("Y", searchName);
+        userList = userService.findByShowWhenSearch("Y", searchName);
         if (userList.size() == 0) {
             System.out.println("이름이 유사한 또는 일치하는 회원이 없습니다.");
             System.out.println();
