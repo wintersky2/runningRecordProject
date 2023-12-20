@@ -1,7 +1,6 @@
 package org.example.user;
 
 import org.example.Global;
-import org.example.db.DBConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Map;
 public class UserRepository {
     public int createUser(String userId, String password, String name, double weight) {
         String sql = String.format("INSERT INTO `user` SET userId='%s', `password`='%s', name='%s', weight=%f," +
-                "showWhenSearch='비공개', showMyRecord='비공개', createDate=NOW(), modifiedDate=NOW()", userId, password, name, weight);
+                "showWhenSearch='N', showMyRecord='N', createDate=NOW(), modifiedDate=NOW()", userId, password, name, weight);
         int id = Global.getDBConnection().insert(sql);
 
         return id;
@@ -23,6 +22,11 @@ public class UserRepository {
 
     public void updateUserWeight(double newUserWeight) {
         String sql = String.format("UPDATE `user` SET weight=%f, modifiedDate=NOW() WHERE id=%d", newUserWeight, Global.getLoginedUser().getId());
+        Global.getDBConnection().update(sql);
+    }
+
+    public void updateUserPassword(String newUserPassword) {
+        String sql = String.format("UPDATE `user` SET password='%s', modifiedDate=NOW() WHERE id=%d", newUserPassword, Global.getLoginedUser().getId());
         Global.getDBConnection().update(sql);
     }
 
@@ -66,7 +70,7 @@ public class UserRepository {
     public List<User> FindByShowWhenSearch(String showWhenSearch, String searchName) {
         List<User> userList = new ArrayList<>();
 
-        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='%s' AND `name` LIKE \"%%%s%%\"", showWhenSearch, searchName);
+        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='%s' AND `name` LIKE '%%%s%%'", showWhenSearch, searchName);
         List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
 
         for (Map<String, Object> row : rows) {
@@ -78,10 +82,10 @@ public class UserRepository {
 
     public String updateShowWhenSearch(String showWhenSearchStatus) {
         String status = numToPermStatus(showWhenSearchStatus);
-        if(status==null||showWhenSearchStatus.equals("3")){
+        if (status == null || showWhenSearchStatus.equals("3")) {
             return null;
-        }else {
-            String sql = String.format("UPDATE `user` SET showWhenSearch='%s', modifiedDate=NOW() WHERE id=%d",status,Global.getLoginedUser().getId());
+        } else {
+            String sql = String.format("UPDATE `user` SET showWhenSearch='%s', modifiedDate=NOW() WHERE id=%d", status, Global.getLoginedUser().getId());
             Global.getDBConnection().update(sql);
             return status;
         }
@@ -89,24 +93,27 @@ public class UserRepository {
 
     public String updateShowMyRecord(String showMyRecordStatus) {
         String status = numToPermStatus(showMyRecordStatus);
-        if(status==null){
+        if (status == null) {
             return null;
-        }else {
-            String sql = String.format("UPDATE `user` SET showMyRecord='%s', modifiedDate=NOW() WHERE id=%d",status,Global.getLoginedUser().getId());
+        } else {
+            String sql = String.format("UPDATE `user` SET showMyRecord='%s', modifiedDate=NOW() WHERE id=%d", status, Global.getLoginedUser().getId());
             Global.getDBConnection().update(sql);
             return status;
         }
     }
-    public String numToPermStatus (String num){
-        switch (num){
+
+    public String numToPermStatus(String num) {
+        switch (num) {
             case "1":
-                return "공개";
+                return "Y";
             case "2":
-                return "비공개";
+                return "N";
             case "3":
-                return "팔로우만";
+                return "F";
             default:
                 return null;
         }
     }
+
+
 }

@@ -40,4 +40,8 @@ public class UserService {
     public String updateShowMyRecord(String showMyRecordStatus) {
         return this.userRepository.updateShowMyRecord(showMyRecordStatus);
     }
+
+    public void updateUserPassword(String newUserPassword) {
+        this.userRepository.updateUserPassword(newUserPassword);
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Map;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class User {

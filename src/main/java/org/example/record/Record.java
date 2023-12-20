@@ -1,13 +1,20 @@
 package org.example.record;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
 public class Record {
-    int id;
-    int userId;
-    String startTime;
-    String endTime;
-    double runDistance;
-    String runTime;
-    double calorie;
-    String createDate;
-    String modifiedTime;
+    private int id;
+    private int userId;
+    private String startTime;
+    private String endTime;
+    private double runDistance;
+    private String runTime;
+    private double calorie;
+    private String createDate;
+    private String modifiedTime;
 }
