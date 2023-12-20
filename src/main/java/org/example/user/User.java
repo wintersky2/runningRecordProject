@@ -20,7 +20,7 @@ public class User {
     private String createDate;
     private String modifiedDate;
 
-    User(Map<String, Object> row) {
+    public User(Map<String, Object> row) {
         this.id = (int) row.get("id");
         this.userId = (String) row.get("userId");
         this.password = (String) row.get("password");

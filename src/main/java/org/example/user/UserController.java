@@ -15,8 +15,10 @@ public class UserController {
     }
 
     public void createUser() {
+        double weight;
         String userId;
         String password;
+
         System.out.println("== 회원가입 == ");
         while (true) { // 아이디 입력 및 중복검사
             System.out.print("아이디 입력 : ");
@@ -34,9 +36,16 @@ public class UserController {
 
         System.out.print("이름 입력 : ");
         String name = Global.getScanner().nextLine().trim();
-        System.out.print("현재 체중 입력(Kg생략) : ");
-        double weight = Double.parseDouble(Global.getScanner().nextLine().trim());
 
+        while (true) { //체중 입력받고 실수값인지 검증
+            try {
+                System.out.print("현재 체중 입력(Kg생략) : ");
+                weight = Double.parseDouble(Global.getScanner().nextLine().trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("올바른 숫자를 입력해주세요.");
+            }
+        }
         int id = userService.createUser(userId, password, name, weight);
         if (id == -1) {
             System.out.println("회원가입에 실패하셨습니다. 다시 시도하세요.");
@@ -95,7 +104,7 @@ public class UserController {
     }
 
     public void settingUser() {
-        while (Global.getLoginedUser()!=null) {
+        while (Global.getLoginedUser() != null) {
             System.out.println("== 개인정보설정 및 공개여부설정 ==");
             System.out.println("1.개인정보조회 2.개인정보변경 3.공개상태변경 0.뒤로가기");
             String category = Global.getScanner().nextLine().trim();
@@ -133,7 +142,7 @@ public class UserController {
     }
 
     public void changeLoginedUserInfo() {
-        while (Global.getLoginedUser()!=null) {
+        while (Global.getLoginedUser() != null) {
             System.out.println("== 개인정보변경 ==");
             System.out.println("1.회원이름변경 2.회원체중변경 3.비밀번호변경 0.뒤로가기");
             String category = Global.getScanner().nextLine().trim();
@@ -186,7 +195,7 @@ public class UserController {
     }
 
     public void changePrivateStatus() {
-        while (Global.getLoginedUser()!=null) {
+        while (Global.getLoginedUser() != null) {
             System.out.println("== 공개상태변경 ==");
             System.out.println("1.타인에게 검색노출여부 2.타인에게 기록노출여부 0.뒤로가기");
             String category = Global.getScanner().nextLine().trim();
@@ -209,7 +218,7 @@ public class UserController {
     }
 
     public void updateShowWhenSearch() {
-        while (Global.getLoginedUser()!=null) {
+        while (Global.getLoginedUser() != null) {
             System.out.println("== 검색노출여부 선택 ==");
             System.out.println("1.공개 2.비공개");
             String showWhenSearchStatus = Global.getScanner().nextLine().trim();
@@ -231,7 +240,7 @@ public class UserController {
     }
 
     public void updateShowMyRecord() {
-        while (Global.getLoginedUser()!=null) {
+        while (Global.getLoginedUser() != null) {
             System.out.println("== 기록노출여부 선택 ==");
             System.out.println("1.공개 2.비공개 3.팔로워만");
             String showMyRecordStatus = Global.getScanner().nextLine().trim();

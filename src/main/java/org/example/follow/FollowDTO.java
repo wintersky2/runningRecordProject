@@ -17,8 +17,8 @@ public class FollowDTO {
     private int followId;
     private String createDate;
     private String modifiedDate;
-    private String name;
-    private int idFromUser;
+    private String Username;
+    private String followUserName;
 
     public FollowDTO(Map<String, Object> row) {
         this.id = (int) row.get("id");
@@ -26,7 +26,7 @@ public class FollowDTO {
         this.followId = (int) row.get("followId");
         this.createDate = row.get("createDate").toString();
         this.modifiedDate = row.get("modifiedDate").toString();
-        this.name = (String)row.get("name");
-        this.idFromUser = (int)row.get("idFromUser");
+        this.Username = (String)row.get("Username");
+        this.followUserName = (String)row.get("followUserName");
     }
 }

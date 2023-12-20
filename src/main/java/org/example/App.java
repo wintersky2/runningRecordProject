@@ -1,10 +1,13 @@
 package org.example;
 
 import org.example.db.DBConnection;
+import org.example.follow.FollowController;
 import org.example.user.UserController;
 
 public class App {
     UserController userController;
+    FollowController followController;
+
 
     public App() {
         DBConnection.DB_NAME = "runningRecordProject";
@@ -15,6 +18,7 @@ public class App {
         Global.getDBConnection().connect();
 
         userController = new UserController();
+        followController = new FollowController();
     }
 
     public void run() {
@@ -53,8 +57,8 @@ public class App {
                         this.userController.searchUser();
                         continue;
                     case "4":
+                        this.followController.followMenu();
                         continue;
-
                     case "5": //개인정보설정 및 공개여부설정
                         this.userController.settingUser();
                         continue;

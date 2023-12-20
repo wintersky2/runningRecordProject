@@ -1,6 +1,5 @@
 package org.example;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.db.DBConnection;
@@ -15,6 +14,7 @@ import org.example.user.User;
 public class Global {
     private static DBConnection dbConnection;
     private static Scanner scanner;
+    private static User userType;
     private static User loginedUser;
 
     public static DBConnection getDBConnection() {
