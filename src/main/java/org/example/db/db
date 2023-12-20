@@ -58,3 +58,5 @@ DESC record;
 DESC achive;
 DESC follow;
 SELECT *FROM `user`;
+SELECT * FROM `user`WHERE showWhenSearch='Y'AND`name` LIKE '%u%';
+SELECT `userId`,`id` FROM `user` WHERE showWhenSearch='Y' AND `name` LIKE '%er%';
