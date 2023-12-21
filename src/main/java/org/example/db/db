@@ -26,21 +26,6 @@ CREATE TABLE `record` (
 	`modifiedDate` datetime NOT NULL
 );
 
-CREATE TABLE `achive` (
-	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	`userId` int UNSIGNED NOT NULL,
-	`distance` double UNSIGNED NOT NULL,
-	`time` datetime NOT NULL,
-	`calorie` double UNSIGNED NOT NULL,
-	`weight` double UNSIGNED NOT NULL,
-	`isDistance` char(10) NOT NULL,
-	`isTime` char(10) NOT NULL,
-	`isCalorie` char(10) NOT NULL,
-	`isWeight` char(10) NOT NULL,
-	`createDate` datetime NOT NULL,
-	`modifiedDate` datetime NOT NULL
-);
-
 CREATE TABLE `follow` (
 	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`userId` int UNSIGNED NOT NULL,
@@ -50,43 +35,15 @@ CREATE TABLE `follow` (
 );
 
 SHOW tables;
-DROP TABLE `user`;
-DROP TABLE follow;
-DROP TABLE record;
-DESC USER;
-DESC record;
-DESC achive;
-DESC follow;
+DROP TABLE `user`; DESC `user`;
+DROP TABLE follow; DESC follow;
+DROP TABLE record; DESC record;
+
 SELECT *FROM `user`;
 SELECT * FROM follow;
 SELECT * FROM record;
-SELECT * FROM `user`WHERE showWhenSearch='Y'AND`name` LIKE '%u%';
-SELECT * FROM follow;
-SELECT U.name, U.id FROM `user` AS U WHERE showWhenSearch='Y' AND `name` LIKE '%%%s%%';
-SELECT R.*,U.name FROM record AS R JOIN `user` AS U ON R.userId = U.id WHERE U.id = 13;
 
-SELECT FROM record AS R JOIN `user`AS U ON R.userId = U.id JOIN follow AS F ON R.userId = F.userId WHERE U.id=13 AND U.showMyRecord='y';
-
-SELECT F.*,
-U.name AS Username,
-U2.name AS followUserName
-FROM follow AS F
-JOIN `user` AS U
-ON F.userId=U.id
-JOIN `user`AS U2
-ON F.followId =U2.id
-WHERE U.id = 13;
-
-SELECT F.*,
-U.name AS followUserName,
-U2.name AS Username
-FROM follow AS F
-JOIN `user` AS U
-ON F.userId=U.id
-JOIN `user`AS U2
-ON F.followId =U2.id
-WHERE F.followId = 13;
-
+-- 유저 정보 넣기 --
 INSERT INTO user (userId, password, name, weight, showWhenSearch, showMyRecord, createDate, modifiedDate)
 VALUES
 ('user1', 'user1p', '홍규용', 55.2, 'Y', 'F', NOW(), NOW()),
@@ -130,6 +87,7 @@ VALUES
 ('user39', 'user39p', '박소민', 58.9, 'Y', 'F', NOW(), NOW()),
 ('user40', 'user40p', '황은비', 86.3, 'Y', 'F', NOW(), NOW());
 
+-- 팔로우정보넣기 --
 INSERT INTO follow (userId, followId, createDate, modifiedDate)
 VALUES
 (1, 2, NOW(), NOW()),
@@ -171,3 +129,21 @@ VALUES
 (19, 38, NOW(), NOW()),
 (19, 39, NOW(), NOW()),
 (20, 40, NOW(), NOW());
+
+-- 달리기 기록넣기 13번유저만 --
+INSERT INTO record (userId, runDistance, runTime, calorie, createDate, modifiedDate)
+VALUES
+(13, 5.2, '00:30:00', 300.5, NOW(), NOW()),
+(13, 6.8, '00:40:00', 450.2, NOW(), NOW()),
+(13, 4.5, '00:25:00', 200.3, NOW(), NOW()),
+(13, 7.3, '00:55:00', 600.7, NOW(), NOW()),
+(13, 8.1, '01:10:00', 750.9, NOW(), NOW());
+
+-- 달리기 기록넣기 12번유저만 --
+INSERT INTO record (userId, runDistance, runTime, calorie, createDate, modifiedDate)
+VALUES
+(12, 3.5, '00:20:00', 180.2, NOW(), NOW()),
+(12, 5.0, '00:35:00', 250.6, NOW(), NOW()),
+(12, 4.2, '00:30:00', 220.3, NOW(), NOW()),
+(12, 6.7, '00:45:00', 380.8, NOW(), NOW()),
+(12, 7.8, '01:00:00', 500.4, NOW(), NOW());
