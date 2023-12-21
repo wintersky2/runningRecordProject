@@ -52,11 +52,119 @@ CREATE TABLE `follow` (
 );
 
 SHOW tables;
-
+DROP TABLE `user`;
+DROP TABLE follow;
 DESC USER;
 DESC record;
 DESC achive;
 DESC follow;
 SELECT *FROM `user`;
+SELECT * FROM follow;
 SELECT * FROM `user`WHERE showWhenSearch='Y'AND`name` LIKE '%u%';
-SELECT `userId`,`id` FROM `user` WHERE showWhenSearch='Y' AND `name` LIKE '%er%';
+SELECT * FROM follow;
+SELECT U.name, U.id FROM `user` AS U WHERE showWhenSearch='Y' AND `name` LIKE '%%%s%%';
+
+SELECT F.*,
+U.name AS Username,
+U2.name AS followUserName
+FROM follow AS F
+JOIN `user` AS U
+ON F.userId=U.id
+JOIN `user`AS U2
+ON F.followId =U2.id
+WHERE U.id = 13;
+
+SELECT F.*,
+U.name AS followUserName,
+U2.name AS Username
+FROM follow AS F
+JOIN `user` AS U
+ON F.userId=U.id
+JOIN `user`AS U2
+ON F.followId =U2.id
+WHERE F.followId = 13;
+
+INSERT INTO user (userId, password, name, weight, showWhenSearch, showMyRecord, createDate, modifiedDate)
+VALUES
+('user1', 'user1p', '홍규용', 55.2, 'Y', 'F', NOW(), NOW()),
+('user2', 'user2p', '김지영', 73.4, 'Y', 'F', NOW(), NOW()),
+('user3', 'user3p', '이준호', 82.1, 'Y', 'F', NOW(), NOW()),
+('user4', 'user4p', '박종수', 64.4, 'Y', 'F', NOW(), NOW()),
+('user5', 'user5p', '정지훈', 95.7, 'Y', 'F', NOW(), NOW()),
+('user6', 'user6p', '송민정', 48.6, 'Y', 'F', NOW(), NOW()),
+('user7', 'user7p', '강현우', 79.3, 'Y', 'F', NOW(), NOW()),
+('user8', 'user8p', '임지수', 68.0, 'Y', 'F', NOW(), NOW()),
+('user9', 'user9p', '오성민', 105.8, 'Y', 'F', NOW(), NOW()),
+('user10', 'user10p', '신지호', 61.4, 'Y', 'F', NOW(), NOW()),
+('user11', 'user11p', '배유진', 43.2, 'Y', 'F', NOW(), NOW()),
+('user12', 'user12p', '권현우', 101.1, 'Y', 'F', NOW(), NOW()),
+('user13', 'user13p', '조윤서', 72.7, 'Y', 'F', NOW(), NOW()),
+('user14', 'user14p', '장민재', 89.3, 'Y', 'F', NOW(), NOW()),
+('user15', 'user15p', '한정훈', 65.0, 'Y', 'F', NOW(), NOW()),
+('user16', 'user16p', '손유리', 38.8, 'Y', 'F', NOW(), NOW()),
+('user17', 'user17p', '전지현', 123.5, 'Y', 'F', NOW(), NOW()),
+('user18', 'user18p', '김태영', 53.8, 'Y', 'F', NOW(), NOW()),
+('user19', 'user19p', '양민지', 115.9, 'Y', 'F', NOW(), NOW()),
+('user20', 'user20p', '이재훈', 76.1, 'Y', 'F', NOW(), NOW()),
+('user21', 'user21p', '최승현', 84.2, 'Y', 'F', NOW(), NOW()),
+('user22', 'user22p', '고윤우', 57.3, 'Y', 'F', NOW(), NOW()),
+('user23', 'user23p', '김지섭', 69.5, 'Y', 'F', NOW(), NOW()),
+('user24', 'user24p', '이가연', 92.6, 'Y', 'F', NOW(), NOW()),
+('user25', 'user25p', '임하은', 45.7, 'Y', 'F', NOW(), NOW()),
+('user26', 'user26p', '한승진', 87.3, 'Y', 'F', NOW(), NOW()),
+('user27', 'user27p', '최예진', 76.8, 'Y', 'F', NOW(), NOW()),
+('user28', 'user28p', '김준서', 103.9, 'Y', 'F', NOW(), NOW()),
+('user29', 'user29p', '서윤서', 66.5, 'Y', 'F', NOW(), NOW()),
+('user30', 'user30p', '이현우', 95.4, 'Y', 'F', NOW(), NOW()),
+('user31', 'user31p', '임현준', 53.1, 'Y', 'F', NOW(), NOW()),
+('user32', 'user32p', '박주원', 78.6, 'Y', 'F', NOW(), NOW()),
+('user33', 'user33p', '김민수', 109.7, 'Y', 'F', NOW(), NOW()),
+('user34', 'user34p', '장세현', 60.2, 'Y', 'F', NOW(), NOW()),
+('user35', 'user35p', '양예은', 83.7, 'Y', 'F', NOW(), NOW()),
+('user36', 'user36p', '이정훈', 71.8, 'Y', 'F', NOW(), NOW()),
+('user37', 'user37p', '최서진', 42.3, 'Y', 'F', NOW(), NOW()),
+('user38', 'user38p', '김재우', 97.5, 'Y', 'F', NOW(), NOW()),
+('user39', 'user39p', '박소민', 58.9, 'Y', 'F', NOW(), NOW()),
+('user40', 'user40p', '황은비', 86.3, 'Y', 'F', NOW(), NOW());
+
+INSERT INTO follow (userId, followId, createDate, modifiedDate)
+VALUES
+(1, 2, NOW(), NOW()),
+(1, 3, NOW(), NOW()),
+(2, 4, NOW(), NOW()),
+(2, 5, NOW(), NOW()),
+(3, 6, NOW(), NOW()),
+(3, 7, NOW(), NOW()),
+(4, 8, NOW(), NOW()),
+(4, 9, NOW(), NOW()),
+(5, 10, NOW(), NOW()),
+(5, 11, NOW(), NOW()),
+(6, 12, NOW(), NOW()),
+(6, 13, NOW(), NOW()),
+(7, 14, NOW(), NOW()),
+(7, 15, NOW(), NOW()),
+(8, 16, NOW(), NOW()),
+(8, 17, NOW(), NOW()),
+(9, 18, NOW(), NOW()),
+(9, 19, NOW(), NOW()),
+(10, 20, NOW(), NOW()),
+(10, 21, NOW(), NOW()),
+(11, 22, NOW(), NOW()),
+(11, 23, NOW(), NOW()),
+(12, 24, NOW(), NOW()),
+(12, 25, NOW(), NOW()),
+(13, 26, NOW(), NOW()),
+(13, 27, NOW(), NOW()),
+(14, 28, NOW(), NOW()),
+(14, 29, NOW(), NOW()),
+(15, 30, NOW(), NOW()),
+(15, 31, NOW(), NOW()),
+(16, 32, NOW(), NOW()),
+(16, 33, NOW(), NOW()),
+(17, 34, NOW(), NOW()),
+(17, 35, NOW(), NOW()),
+(18, 36, NOW(), NOW()),
+(18, 37, NOW(), NOW()),
+(19, 38, NOW(), NOW()),
+(19, 39, NOW(), NOW()),
+(20, 40, NOW(), NOW());
