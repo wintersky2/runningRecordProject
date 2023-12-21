@@ -16,7 +16,7 @@ public class Record {
     private String runTime;
     private double calorie;
     private String createDate;
-    private String modifiedTime;
+    private String modifiedDate;
 
     public Record(Map<String, Object> row) {
         this.id = (int) row.get("id");
@@ -25,6 +25,6 @@ public class Record {
         this.runTime = row.get("runTime").toString();
         this.calorie = (double) row.get("calorie");
         this.createDate = row.get("createDate").toString();
-        this.modifiedTime = row.get("modifiedTime").toString();
+        this.modifiedDate = row.get("modifiedDate").toString();
     }
 }

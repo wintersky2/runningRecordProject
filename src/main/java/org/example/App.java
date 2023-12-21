@@ -53,7 +53,7 @@ public class App {
                 String command = Global.getScanner().nextLine().trim();
                 switch (command) {
                     case "1":
-                        this.recordController.createRecord();
+                        this.recordController.recordMenu();
                         continue;
                     case "2":
                         continue;

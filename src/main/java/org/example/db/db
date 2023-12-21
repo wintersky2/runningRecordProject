@@ -18,14 +18,12 @@ CREATE TABLE `user` (
 
 CREATE TABLE `record` (
 	`id` int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	`userId` char(20) NOT NULL,
-	`startTime` datetime NOT NULL,
-	`endTime` datetime NOT NULL,
+	`userId` int UNSIGNED NOT NULL,
 	`runDistance` double UNSIGNED NOT NULL,
-	`runTime` datetime NOT NULL,
+	`runTime` time NOT NULL,
 	`calorie` double UNSIGNED NOT NULL,
 	`createDate` datetime NOT NULL,
-	`modifiedTime` datetime NOT NULL
+	`modifiedDate` datetime NOT NULL
 );
 
 CREATE TABLE `achive` (
@@ -54,15 +52,20 @@ CREATE TABLE `follow` (
 SHOW tables;
 DROP TABLE `user`;
 DROP TABLE follow;
+DROP TABLE record;
 DESC USER;
 DESC record;
 DESC achive;
 DESC follow;
 SELECT *FROM `user`;
 SELECT * FROM follow;
+SELECT * FROM record;
 SELECT * FROM `user`WHERE showWhenSearch='Y'AND`name` LIKE '%u%';
 SELECT * FROM follow;
 SELECT U.name, U.id FROM `user` AS U WHERE showWhenSearch='Y' AND `name` LIKE '%%%s%%';
+SELECT R.*,U.name FROM record AS R JOIN `user` AS U ON R.userId = U.id WHERE U.id = 13;
+
+SELECT FROM record AS R JOIN `user`AS U ON R.userId = U.id JOIN follow AS F ON R.userId = F.userId WHERE U.id=13 AND U.showMyRecord='y';
 
 SELECT F.*,
 U.name AS Username,
