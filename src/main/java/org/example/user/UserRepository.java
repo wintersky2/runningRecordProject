@@ -116,4 +116,8 @@ public class UserRepository {
     }
 
 
+    public void deleteUser() {
+        String sql = String.format("DELETE FROM `user` WHERE id = %d",Global.getLoginedUser().getId());
+        Global.getDBConnection().delete(sql);
+    }
 }

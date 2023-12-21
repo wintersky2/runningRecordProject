@@ -1,9 +1,7 @@
 package org.example.user;
 
 import org.example.Global;
-import org.example.db.DBConnection;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class UserController {
             userId = Global.getScanner().nextLine().trim();
             if (this.userService.userFindByUserId(userId) != null) {
                 System.out.println("중복된 아이디 존재");
-                System.out.println();
+                System.out.println("-----------------------------------------");
                 return;
             } else {
                 break;
@@ -44,16 +42,19 @@ public class UserController {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("올바른 숫자를 입력해주세요.");
+                System.out.println("-----------------------------------------");
             }
         }
         int id = userService.createUser(userId, password, name, weight);
         if (id == -1) {
             System.out.println("회원가입에 실패하셨습니다. 다시 시도하세요.");
-            System.out.println();
+            System.out.println("-----------------------------------------");
             return;
         }
         System.out.println(userId + "님 가입이 완료되었습니다.");
+        System.out.println("-----------------------------------------");
         System.out.println("타인에게 검색노출여부와 기록노출여부는 기본 비공개 상태입니다. '개인설정메뉴에서 수정가능합니다. ");
+
     }
 
     public void login() {
@@ -66,24 +67,24 @@ public class UserController {
         user = this.userService.userFindByUserId(userId);
         if (user == null) {
             System.out.println("존재하지 않는 ID 입니다.");
-            System.out.println();
+            System.out.println("-----------------------------------------");
             return;
         }
         System.out.print("비밀번호 입력 : ");
         String password = Global.getScanner().nextLine().trim();
         if (user.getPassword().equals(password) == false) {
             System.out.println("비밀번호가 일치하지 않습니다.");
-            System.out.println();
+            System.out.println("-----------------------------------------");
             return;
         }
         Global.setLoginedUser(user);
         System.out.println(Global.getLoginedUser().getUserId() + "으로 로그인하셨습니다.");
-        System.out.println();
+        System.out.println("-----------------------------------------");
     }
 
     public void logout() {
         System.out.println("로그아웃 되었습니다.");
-        System.out.println();
+        System.out.println("-----------------------------------------");
         Global.setLoginedUser(null);
     }
 
@@ -94,12 +95,13 @@ public class UserController {
         userList = userService.findByShowWhenSearch("Y", searchName);
         if (userList.size() == 0) {
             System.out.println("이름이 유사한 또는 일치하는 회원이 없습니다.");
-            System.out.println();
+            System.out.println("-----------------------------------------");
             return;
         }
         for (User user : userList) {
             System.out.println("회원 이름 : " + user.getName() + "(님)\n" +
                     "회원 고유ID번호 : " + user.getId() + "(번)\n");
+            System.out.println("-----------------------------------------");
         }
     }
 
@@ -120,17 +122,18 @@ public class UserController {
                     continue;
                 case "0":
                     System.out.println("뒤로가기 선택");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
                     return;
                 default:
                     System.out.println("잘못된 숫자 입력");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
             }
         }
     }
 
     public void showLoginedUserInfo() {
         System.out.println("== 개인정보조회 ==");
+        System.out.println("-----------------------------------------");
         System.out.println("회원 고유ID번호 : " + Global.getLoginedUser().getId() + "(번)\n" +
                 "회원 ID : " + Global.getLoginedUser().getUserId() + "\n" +
                 "회원명 : " + Global.getLoginedUser().getName() + "(님)\n" +
@@ -139,6 +142,7 @@ public class UserController {
                 "나의 기록조회권한 : " + statusConverter(Global.getLoginedUser().getShowMyRecord()) + "\n" +
                 "가입일 : " + Global.getLoginedUser().getCreateDate().substring(0, 10) + "\n" +
                 "마지막 정보 수정일 : " + Global.getLoginedUser().getModifiedDate() + "\n");
+        System.out.println("-----------------------------------------");
     }
 
     public void changeLoginedUserInfo() {
@@ -148,48 +152,54 @@ public class UserController {
             String category = Global.getScanner().nextLine().trim();
             switch (category) {
                 case "1":
+                    System.out.println("-----------------------------------------");
+                    System.out.println("== 회원 이름 변경 ==");
                     System.out.println("기존 회원이름 : " + Global.getLoginedUser().getName());
                     System.out.print("새로운 회원이름 입력 : ");
                     String newUserName = Global.getScanner().nextLine().trim();
                     this.userService.updateUserName(newUserName);
                     System.out.println("회원이름 '" + newUserName + "' 으로 변경되었습니다.");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
 
                     reloadUser();
                     continue;
                 case "2":
+                    System.out.println("-----------------------------------------");
+                    System.out.println("== 회원 체중 변경 ==");
                     System.out.println("기존 회원체중 : " + Global.getLoginedUser().getWeight());
                     System.out.print("새로운 체중 입력 : ");
                     double newUserWeight = Double.parseDouble(Global.getScanner().nextLine().trim());
                     this.userService.updateUserWeight(newUserWeight);
                     System.out.println("현재 체중이 '" + newUserWeight + "'(Kg)으로 변경되었습니다.");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
 
                     reloadUser();
                     continue;
                 case "3":
+                    System.out.println("-----------------------------------------");
+                    System.out.println("== 비밀번호 변경 ==");
                     System.out.print("현재 비밀번호 입력 : ");
                     String password = Global.getScanner().nextLine().trim();
                     String confirmPassword = Global.getLoginedUser().getPassword();
                     if (confirmPassword.equals(password) == false) {
                         System.out.println("비밀번호가 일치하지 않습니다.");
-                        System.out.println();
+                        System.out.println("-----------------------------------------");
                         continue;
                     }
                     String newUserPassword = passwordSameTest();
                     this.userService.updateUserPassword(newUserPassword);
                     System.out.println("비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요.");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
 
                     Global.setLoginedUser(null);
                     continue;
                 case "0":
                     System.out.println("뒤로가기 선택");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
                     return;
                 default:
                     System.out.println("잘못된 숫자 입력");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
             }
         }
     }
@@ -208,11 +218,11 @@ public class UserController {
                     continue;
                 case "0":
                     System.out.println("뒤로가기 선택");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
                     return;
                 default:
                     System.out.println("잘못된 숫자 입력");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
             }
         }
     }
@@ -226,15 +236,16 @@ public class UserController {
             switch (showWhenSearchStatus) {
                 case "1":
                 case "2":
+                    System.out.println("-----------------------------------------");
                     String status = this.userService.updateShowWhenSearch(showWhenSearchStatus);
                     System.out.println("검색노출여부가 " + statusConverter(status) + "로 변경되었습니다.");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
 
                     reloadUser();
                     return;
                 default:
                     System.out.println("잘못된 숫자 입력");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
             }
         }
     }
@@ -249,15 +260,36 @@ public class UserController {
                 case "1":
                 case "2":
                 case "3":
+                    System.out.println("-----------------------------------------");
                     String status = this.userService.updateShowMyRecord(showMyRecordStatus);
                     System.out.println("기록노출여부가 " + statusConverter(status) + "로 변경되었습니다.");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
 
                     reloadUser();
                     return;
                 default:
                     System.out.println("잘못된 숫자 입력");
-                    System.out.println();
+                    System.out.println("-----------------------------------------");
+            }
+        }
+    }
+    public void deleteUser (){
+        System.out.println("== 회원 탈퇴 ==");
+        while (Global.getLoginedUser() != null){
+            System.out.print("현재 비밀번호 입력 : ");
+            String passwordConfirm = Global.getScanner().nextLine().trim();
+            if(Global.getLoginedUser().getPassword().equals(passwordConfirm)){
+                System.out.println("정말로 탈퇴하시겠습니까?\n 동의 = '예', 비동의는 아무거나 입력");
+                String confirm = Global.getScanner().nextLine().trim();
+                if(confirm.equals("예")){
+                    System.out.println("회원 탈퇴가 완료되었습니다.");
+                    this.userService.deleteUser();
+                    Global.setLoginedUser(null);
+                }else {
+                    System.out.println("회원탈퇴 취소");
+                    System.out.println("-----------------------------------------");
+                    return;
+                }
             }
         }
     }
@@ -290,7 +322,7 @@ public class UserController {
                 return password;
             }
             System.out.println("비밀번호 확인,재확인 불일치");
-            System.out.println();
+            System.out.println("-----------------------------------------");
         }
     }
 }

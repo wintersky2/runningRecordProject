@@ -35,7 +35,7 @@ public class FollowRepository {
         List<FollowDTO> followList = new ArrayList<>();
         String sql = String.format("SELECT F.*,U.name AS followUserName,U2.name AS Username " +
                 "FROM follow AS F JOIN `user` AS U ON F.userId=U.id " +
-                "JOIN `user`AS U2 ON F.followId =U2.id WHERE F.followId = %d;", Global.getLoginedUser().getId());
+                "JOIN `user`AS U2 ON F.followId =U2.id WHERE F.followId = %d", Global.getLoginedUser().getId());
         List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
 
         for (Map<String, Object> row : rows) {
@@ -60,7 +60,7 @@ public class FollowRepository {
 
     public List<User> searchUserByName(String searchName) {
         List<User> searchUserList = new ArrayList<>();
-        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='Y' AND `name` LIKE '%%%s%%'", searchName);
+        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='Y' AND (`name` LIKE '%%%s%%' OR `userId` LIKE '%%%s%%')", searchName,searchName);
         List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
         for (Map<String, Object> row : rows) {
             User user = new User(row);

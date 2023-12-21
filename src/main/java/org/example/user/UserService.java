@@ -44,4 +44,8 @@ public class UserService {
     public void updateUserPassword(String newUserPassword) {
         this.userRepository.updateUserPassword(newUserPassword);
     }
+
+    public void deleteUser() {
+        this.userRepository.deleteUser();
+    }
 }
