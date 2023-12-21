@@ -2,11 +2,13 @@ package org.example;
 
 import org.example.db.DBConnection;
 import org.example.follow.FollowController;
+import org.example.record.RecordController;
 import org.example.user.UserController;
 
 public class App {
     UserController userController;
     FollowController followController;
+    RecordController recordController;
 
 
     public App() {
@@ -19,6 +21,7 @@ public class App {
 
         userController = new UserController();
         followController = new FollowController();
+        recordController = new RecordController();
     }
 
     public void run() {
@@ -45,11 +48,12 @@ public class App {
                 }
             } else {
                 System.out.println("*** 메뉴에 해당하는 숫자를 입력하세요. ***");
-                System.out.println("1.런닝내용기록메뉴 2.목표관련메뉴 3.회원검색 \n" +
+                System.out.println("1.런닝기록관련메뉴 2.목표관련메뉴 3.회원검색 \n" +
                         "   4.팔로우관련메뉴 5.개인정보설정 및 공개여부설정 0.로그아웃");
                 String command = Global.getScanner().nextLine().trim();
                 switch (command) {
                     case "1":
+                        this.recordController.createRecord();
                         continue;
                     case "2":
                         continue;
