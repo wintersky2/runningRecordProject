@@ -124,6 +124,10 @@ public class FollowController {
         System.out.println("== 내가 팔로우 한 회원 목록 ==");
         System.out.println("-----------------------------------------");
         List<FollowDTO> followDTOList = this.followService.showFollowing();
+        if (followDTOList.size() == 0) {
+            System.out.println("팔로우한 회원이 없습니다.");
+            System.out.println("-----------------------------------------");
+        }
         for (FollowDTO followDTO : followDTOList) {
             System.out.println("회원이름 : " + followDTO.getFollowUserName() + "(님)" + "  회원고유ID : " + followDTO.getFollowId() + "(번)");
             System.out.println("팔로우 한 날짜 : " + followDTO.getCreateDate());
@@ -133,7 +137,12 @@ public class FollowController {
 
     public void showFollower() {
         System.out.println("== 나를 팔로우한 회원 목록 ==");
+        System.out.println("-----------------------------------------");
         List<FollowDTO> followDTOList = this.followService.showFollower();
+        if (followDTOList.size() == 0) {
+            System.out.println("나를 팔로우한 회원이 없습니다.");
+            System.out.println("-----------------------------------------");
+        }
         for (FollowDTO followDTO : followDTOList) {
             System.out.println("회원이름 : " + followDTO.getFollowUserName() + "(님)" + "  회원고유ID : " + followDTO.getUserId() + "(번)");
             System.out.println("팔로우 한 날짜 : " + followDTO.getCreateDate());

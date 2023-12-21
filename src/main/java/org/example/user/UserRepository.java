@@ -8,25 +8,25 @@ import java.util.Map;
 
 public class UserRepository {
     public int createUser(String userId, String password, String name, double weight) {
-        String sql = String.format("INSERT INTO `user` SET userId='%s', `password`='%s', name='%s', weight=%f," +
-                "showWhenSearch='N', showMyRecord='N', createDate=NOW(), modifiedDate=NOW()", userId, password, name, weight);
+        String sql = String.format("INSERT INTO `user` SET userId = '%s', `password` = '%s', name = '%s', weight = %f," +
+                "showWhenSearch = 'N', showMyRecord = 'N', createDate = NOW(), modifiedDate = NOW()", userId, password, name, weight);
         int id = Global.getDBConnection().insert(sql);
 
         return id;
     }
 
     public void updateUserName(String newUserName) {
-        String sql = String.format("UPDATE `user` SET name='%s', modifiedDate=NOW() WHERE id=%d", newUserName, Global.getLoginedUser().getId());
+        String sql = String.format("UPDATE `user` SET name = '%s', modifiedDate = NOW() WHERE id = %d", newUserName, Global.getLoginedUser().getId());
         Global.getDBConnection().update(sql);
     }
 
     public void updateUserWeight(double newUserWeight) {
-        String sql = String.format("UPDATE `user` SET weight=%f, modifiedDate=NOW() WHERE id=%d", newUserWeight, Global.getLoginedUser().getId());
+        String sql = String.format("UPDATE `user` SET weight = %f, modifiedDate = NOW() WHERE id = %d", newUserWeight, Global.getLoginedUser().getId());
         Global.getDBConnection().update(sql);
     }
 
     public void updateUserPassword(String newUserPassword) {
-        String sql = String.format("UPDATE `user` SET password='%s', modifiedDate=NOW() WHERE id=%d", newUserPassword, Global.getLoginedUser().getId());
+        String sql = String.format("UPDATE `user` SET password = '%s', modifiedDate = NOW() WHERE id = %d", newUserPassword, Global.getLoginedUser().getId());
         Global.getDBConnection().update(sql);
     }
 
@@ -67,10 +67,10 @@ public class UserRepository {
         return null;
     }
 
-    public List<User> findByShowWhenSearch(String showWhenSearch, String searchName) {
+    public List<User> findByShowWhenSearch(String searchName) {
         List<User> userList = new ArrayList<>();
 
-        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='%s' AND `name` LIKE '%%%s%%'", showWhenSearch, searchName);
+        String sql = String.format("SELECT * FROM `user` WHERE showWhenSearch='Y' AND (`name` LIKE '%%%s%%' OR `userId` LIKE '%%%s%%')", searchName, searchName);
         List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
 
         for (Map<String, Object> row : rows) {
@@ -85,7 +85,7 @@ public class UserRepository {
         if (status == null || showWhenSearchStatus.equals("3")) {
             return null;
         } else {
-            String sql = String.format("UPDATE `user` SET showWhenSearch='%s', modifiedDate=NOW() WHERE id=%d", status, Global.getLoginedUser().getId());
+            String sql = String.format("UPDATE `user` SET showWhenSearch = '%s', modifiedDate = NOW() WHERE id = %d", status, Global.getLoginedUser().getId());
             Global.getDBConnection().update(sql);
             return status;
         }
@@ -96,7 +96,7 @@ public class UserRepository {
         if (status == null) {
             return null;
         } else {
-            String sql = String.format("UPDATE `user` SET showMyRecord='%s', modifiedDate=NOW() WHERE id=%d", status, Global.getLoginedUser().getId());
+            String sql = String.format("UPDATE `user` SET showMyRecord = '%s', modifiedDate = NOW() WHERE id = %d", status, Global.getLoginedUser().getId());
             Global.getDBConnection().update(sql);
             return status;
         }
@@ -117,7 +117,7 @@ public class UserRepository {
 
 
     public void deleteUser() {
-        String sql = String.format("DELETE FROM `user` WHERE id = %d",Global.getLoginedUser().getId());
+        String sql = String.format("DELETE FROM `user` WHERE id = %d", Global.getLoginedUser().getId());
         Global.getDBConnection().delete(sql);
     }
 }

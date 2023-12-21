@@ -89,10 +89,9 @@ public class UserController {
     }
 
     public void searchUser() {
-        System.out.print("회원 이름 검색 : ");
+        System.out.print("회원 이름 또는 ID 검색 : ");
         String searchName = Global.getScanner().nextLine().trim();
-        List<User> userList = new ArrayList<>();
-        userList = userService.findByShowWhenSearch("Y", searchName);
+        List<User> userList = userService.findByShowWhenSearch(searchName);
         if (userList.size() == 0) {
             System.out.println("이름이 유사한 또는 일치하는 회원이 없습니다.");
             System.out.println("-----------------------------------------");
@@ -273,19 +272,20 @@ public class UserController {
             }
         }
     }
-    public void deleteUser (){
+
+    public void deleteUser() {
         System.out.println("== 회원 탈퇴 ==");
-        while (Global.getLoginedUser() != null){
+        while (Global.getLoginedUser() != null) {
             System.out.print("현재 비밀번호 입력 : ");
             String passwordConfirm = Global.getScanner().nextLine().trim();
-            if(Global.getLoginedUser().getPassword().equals(passwordConfirm)){
+            if (Global.getLoginedUser().getPassword().equals(passwordConfirm)) {
                 System.out.println("정말로 탈퇴하시겠습니까?\n 동의 = '예', 비동의는 아무거나 입력");
                 String confirm = Global.getScanner().nextLine().trim();
-                if(confirm.equals("예")){
+                if (confirm.equals("예")) {
                     System.out.println("회원 탈퇴가 완료되었습니다.");
                     this.userService.deleteUser();
                     Global.setLoginedUser(null);
-                }else {
+                } else {
                     System.out.println("회원탈퇴 취소");
                     System.out.println("-----------------------------------------");
                     return;

@@ -25,7 +25,7 @@ public class App {
     }
 
     public void run() {
-        System.out.println("==== 달리다 앱 실행 ====");
+        System.out.println("==== 런닝 기록, 조회 게시판 실행 ====");
         System.out.println();
         while (true) {
             if (Global.getLoginedUser() == null) {
@@ -40,7 +40,7 @@ public class App {
                         this.userController.login();
                         continue;
                     case "0": //앱종료
-                        System.out.println("달리다 앱을 종료합니다.");
+                        System.out.println("== 런닝 기록, 조회 게시판을 종료합니다.");
                         System.out.println("-----------------------------------------");
                         return;
                 }
@@ -50,7 +50,7 @@ public class App {
                         "4.개인정보설정 및 공개여부설정 5.회원탈퇴 0.로그아웃");
                 String command = Global.getScanner().nextLine().trim();
                 switch (command) {
-                    case "1":
+                    case "1": //런닝기록관련메뉴
                         this.recordController.recordMenu();
                         continue;
                     case "2": //회원검색
@@ -62,7 +62,7 @@ public class App {
                     case "4": //개인정보설정 및 공개여부설정
                         this.userController.settingUser();
                         continue;
-                    case "5":
+                    case "5": //회원탈퇴
                         this.userController.deleteUser();
                         continue;
                     case "0":
