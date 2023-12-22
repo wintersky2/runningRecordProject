@@ -276,8 +276,11 @@ public class UserController {
     public void deleteUser() {
         System.out.println("== 회원 탈퇴 ==");
         while (Global.getLoginedUser() != null) {
-            System.out.print("현재 비밀번호 입력 : ");
+            System.out.print("현재 비밀번호 입력 (0 입력시 뒤로가기) : ");
             String passwordConfirm = Global.getScanner().nextLine().trim();
+            if (passwordConfirm.equals("0")) {
+                return;
+            }
             if (Global.getLoginedUser().getPassword().equals(passwordConfirm)) {
                 System.out.println("정말로 탈퇴하시겠습니까?\n 동의 = '예', 비동의는 아무거나 입력");
                 String confirm = Global.getScanner().nextLine().trim();

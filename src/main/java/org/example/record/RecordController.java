@@ -187,7 +187,7 @@ public class RecordController {
             System.out.println("기록 고유ID : " + recordDTOForShowMyRecord.getId() + "(번)\n" +
                     "작성자 : " + recordDTOForShowMyRecord.getName() + "(님)\n" +
                     "달린 거리 : " + recordDTOForShowMyRecord.getRunDistance() + "(KM)\n" +
-                    "달린 시간 : " + recordDTOForShowMyRecord.getRunTime() +
+                    "달린 시간 : " + recordDTOForShowMyRecord.getRunTime() + "\n" +
                     "소모한 칼로리 : " + recordDTOForShowMyRecord.getCalorie() + "(kcal)\n" +
                     "작성일 : " + recordDTOForShowMyRecord.getCreateDate());
             System.out.println("-----------------------------------------");
@@ -225,6 +225,11 @@ public class RecordController {
                 for (int confirmId : canShowUserList) {
                     if (confirmId == id) {
                         List<RecordDTOForShowMyRecord> userRecord = this.recordService.showMyRecordById(id);
+                        if (userRecord.size()==0){
+                            System.out.println("기록이 없습니다.");
+                            System.out.println("--------------------------------------");
+                            return;
+                        }
                         for (RecordDTOForShowMyRecord recordDTOForShowMyRecord : userRecord) {
                             System.out.println("작성자 : " + recordDTOForShowMyRecord.getName() + "(님)\n" +
                                     "달린 거리 : " + recordDTOForShowMyRecord.getRunDistance() + "(Km)\n" +
