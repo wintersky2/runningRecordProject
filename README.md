@@ -88,9 +88,3 @@ FROM follow AS F JOIN `user` AS U ON F.userId = U.id
 JOIN `user`AS U2 ON F.followId = U2.id WHERE F.userId = %d ORDER BY F.followId;
 ~~~
 하여 DB에 follow 테이블에 있는 기본( id, userId, followId, createDate, modifiedDate ) 들도 같이 불러옴으로써 NULL인곳을 없앴다.
-
-회원 검색에 ID도 포함
-
-Readme 자세하게 코드 삽입해서 수정하기.
-
-영상제출 화요일까지 
