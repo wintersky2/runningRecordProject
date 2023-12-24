@@ -43,6 +43,7 @@
 A. 회원 정보를 수정하고 나서 조회하면 수정 이전의 정보가 보인다.
 
 ```JAVA
+
 ```
 <br>
 <br>
@@ -66,16 +67,25 @@ A. 팔로우 목록을 조회하면 NULL오류가 발생함.
 문제점 설명
 <br>
 ## 🛑 원인
-- 팔로우DTO 타입이 DB에서 불러온 row의 컬럼과 맞지않아서 빈공간이 생김.
+- 팔로우DTO타입에는 원래 id, userId, followId, createDate, modifiedDate, userName, followUserName의 값을 DB에서 가져와야하는데,
+  아래 followRepository 클래스에 있는 showFollowing 매서드에는 아래와 같이 userName, followUserName 만 가져온다.
+  ~~~SQL
+  SELECT U.name AS userName,U2.name AS followUserName
+  FROM follow AS F JOIN `user` AS U ON F.userId = U.id
+  JOIN `user`AS U2 ON F.followId = U2.id WHERE F.userId = %d ORDER BY F.followId;
+  ~~~
+  그래서 나머지 id, userId, followId, createDate, modifiedDate는 NULL이라 팔로우DTO타입을 불러사용하면 오류가 나는것이다.
   <br>
   <br>
 
 ## 🚥 해결
-- DB에 SQL 문을 적절히 사용해서 팔로우DTO타입과 맞춰주었다.
-
-
-
-언팔로우에 팔로우만 출력됨
+- FollowRepository 클래스에 showFollowing 매서드에 SQL SELECT에 F.*을 추가해서 팔로우DTO타입에 과 맞춰주었다.
+~~~SQL
+SELECT F.*,U.name AS userName,U2.name AS followUserName
+FROM follow AS F JOIN `user` AS U ON F.userId = U.id
+JOIN `user`AS U2 ON F.followId = U2.id WHERE F.userId = %d ORDER BY F.followId;
+~~~
+하여 DB에 follow 테이블에 있는 기본( id, userId, followId, createDate, modifiedDate ) 들도 같이 불러옴으로써 NULL인곳을 없앴다.
 
 회원 검색에 ID도 포함
 
