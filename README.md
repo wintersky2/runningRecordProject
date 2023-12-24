@@ -41,22 +41,24 @@
 ### 🚧 객체 업데이트
 
 A. 회원 정보를 수정하고 나서 조회하면 수정 이전의 정보가 보인다.
-
-```JAVA
-
-```
 <br>
 <br>
 문제점 설명
 <br>
 ## 🛑 원인
-- 현재 로그인되어있는 User타입의 객체인 loginedUser가 회원정보를 수정했을때
-  즉, User데이터베이스에 있는 값을 가지고 있지않고 이전값을 가지고 있기 때문.
+- 현재 로그인되어있는 유저의 정보를 가지고있는 Global 클래스에 User타입인 Global.loginedUser가 회원정보를 수정했을때
+  즉, User데이터베이스에 있는 해당 user의 새로운 값을 가지고 있지않고 이전값을 가지고 있기 때문이다.
   <br>
   <br>
 
 ## 🚥 해결
-- 회원 정보를 수정하는 매서드를 실행하고 나서 loginedUser를 DB로부터 업데이트해주는 과정을 넣어주었다.
+- 회원 정보를 수정하는 매서드를 실행하고 종료하기 전에 loginedUser를 DB로부터 다시 Load 해주는 reloadUser라는 매서드를 실행시켜 주었다.
+~~~JAVA
+public void reloadUser() {
+        User user = userService.userFindById(Global.getLoginedUser().getId());
+        Global.setLoginedUser(user);
+    }
+~~~
 
 ### 🚨 Issue 2
 ### 🚧 팔로우 목록불러오기
