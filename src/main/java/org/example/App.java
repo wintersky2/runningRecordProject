@@ -41,7 +41,6 @@ public class App {
                         continue;
                     case "0": //앱종료
                         System.out.println("== 런닝 기록, 조회 게시판을 종료합니다. ==");
-                        System.out.println("-----------------------------------------");
                         return;
                 }
             } else {

@@ -8,7 +8,7 @@
 - 런닝기록 조회 또는 삭제할 수 있다.
 - 팔로우 기능으로 다른 유저를 팔로우할 수있다.
 - 팔로우한 유저의 런닝 기록을 기록공개가 되어있다면 조회할 수 있다.
-<br />
+  <br />
 
 <br/>
 
@@ -19,7 +19,7 @@
 - 언어 - Java
 - 데이터베이스 - MySQL
 - 버전관리 - Github
-<br/>
+  <br/>
 
 <br/>
 
@@ -47,13 +47,13 @@ A. 회원 정보를 수정하고 나서 조회하면 수정 이전의 정보가 
 <br>
 ## 🛑 원인
 - 현재 로그인되어있는 유저의 정보를 가지고있는 Global 클래스에 User타입인 Global.loginedUser가 회원정보를 수정했을때
-  즉, User데이터베이스에 있는 해당 user의 새로운 값을 가지고 있지않고 이전값을 가지고 있기 때문이다.
+  즉, User데이터베이스에 있는 해당 user의 새로운 값을 가지고 있지않고, 이전값을 가지고 있기 때문이다.
   <br>
   <br>
 
 ## 🚥 해결
 - 회원 정보를 수정하는 매서드를 실행하고 종료하기 전에 loginedUser를 DB로부터 다시 Load 해주는 reloadUser라는 매서드를 실행시켜 주었다.
-~~~JAVA
+~~~java
 public void reloadUser() {
         User user = userService.userFindById(Global.getLoginedUser().getId());
         Global.setLoginedUser(user);
@@ -71,7 +71,7 @@ A. 팔로우 목록을 조회하면 NULL오류가 발생함.
 ## 🛑 원인
 - 팔로우DTO타입에는 원래 id, userId, followId, createDate, modifiedDate, userName, followUserName의 값을 DB에서 가져와야하는데,
   아래 followRepository 클래스에 있는 showFollowing 매서드에는 아래와 같이 userName, followUserName 만 가져온다.
-  ~~~SQL
+  ~~~roomsql
   SELECT U.name AS userName,U2.name AS followUserName
   FROM follow AS F JOIN `user` AS U ON F.userId = U.id
   JOIN `user`AS U2 ON F.followId = U2.id WHERE F.userId = %d ORDER BY F.followId;
@@ -82,7 +82,7 @@ A. 팔로우 목록을 조회하면 NULL오류가 발생함.
 
 ## 🚥 해결
 - FollowRepository 클래스에 showFollowing 매서드에 SQL SELECT에 F.*을 추가해서 팔로우DTO타입에 과 맞춰주었다.
-~~~SQL
+~~~roomsql
 SELECT F.*,U.name AS userName,U2.name AS followUserName
 FROM follow AS F JOIN `user` AS U ON F.userId = U.id
 JOIN `user`AS U2 ON F.followId = U2.id WHERE F.userId = %d ORDER BY F.followId;

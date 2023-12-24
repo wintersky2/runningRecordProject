@@ -99,7 +99,8 @@ public class UserController {
         }
         for (User user : userList) {
             System.out.println("회원 이름 : " + user.getName() + "(님)\n" +
-                    "회원 고유ID번호 : " + user.getId() + "(번)\n");
+                    "회원 ID : " + user.getUserId() + "\n" +
+                    "회원 고유ID번호 : " + user.getId() + "(번)");
             System.out.println("-----------------------------------------");
         }
     }
